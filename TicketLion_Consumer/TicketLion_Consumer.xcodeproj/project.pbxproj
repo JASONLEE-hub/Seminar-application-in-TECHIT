@@ -130,13 +130,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08C7AD3B2AAFF86800B6C19E /* SeminarModel */ = {
+		08C7AD3B2AAFF86800B6C19E /* SeminarStore, enum */ = {
 			isa = PBXGroup;
 			children = (
-				64B327F62AAF6C8500D64EFF /* SeminarEnum.swift */,
 				08C7AD382AAFF53D00B6C19E /* SeminarStore.swift */,
+				64B327F62AAF6C8500D64EFF /* SeminarEnum.swift */,
 			);
-			path = SeminarModel;
+			path = "SeminarStore, enum";
 			sourceTree = "<group>";
 		};
 		64B327982AAF5CEE00D64EFF = {
@@ -203,7 +203,7 @@
 				8B924DBF2AAFE8E00042D790 /* SeminarDetailMapView.swift */,
 				64B327FA2AAF6CC900D64EFF /* SeminarAttendView.swift */,
 				64B327FC2AAF6CE400D64EFF /* SeminarAttendPlusView.swift */,
-				08C7AD3B2AAFF86800B6C19E /* SeminarModel */,
+				08C7AD3B2AAFF86800B6C19E /* SeminarStore, enum */,
 			);
 			path = SeminarListView;
 			sourceTree = "<group>";

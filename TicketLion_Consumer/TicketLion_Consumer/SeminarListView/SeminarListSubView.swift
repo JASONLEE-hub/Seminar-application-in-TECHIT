@@ -8,30 +8,33 @@
 import SwiftUI
 
 struct SeminarListSubView: View {
+    // ViewModel
     @ObservedObject var seminarStore: SeminarStore
     @EnvironmentObject var userStore: UserStore
+    // SeminarListVIewからBinding
     @Binding var category: Category
     @Binding var search: String
-    
-    @State var isShowingDetail: Bool = false
     @Binding var showingAlert: Bool
+    // State
+    @State var isShowingDetail: Bool = false
+    @State var newSeminar: Seminar = Seminar.seminarsDummy[1]
     
-    @State var newSeminar: Seminar = Seminar.seminarsDummy[1] // 디테일뷰로 전달할때 쓸 seminar 구조체입니다. dummy는 변경할거라 임시로 넣은 것.
-    
-    var body: some View { // 등록시작순으로 정렬했습니다. 서치바를 사용해서 검색되게끔 구현했습니다.
+    var body: some View {
+        // 登録開始順に並べ替え。 検索したセミナーだけが見えるように実装。
         ForEach(seminarStore.seminarList.sorted(by: {$0.registerStartDate < $1.registerStartDate}).filter({"\($0)".localizedStandardContains(self.search) || self.search.isEmpty})) { seminar in
-            
+            // 推してるcategoryのセミナーだけが見えるように実装。
             if seminar.category.contains(category.categoryName) {
-                
+                // DetailViewに移動するButton
                 Button {
-                    newSeminar = seminar // 이부분에서 seminar 데이터를 바운딩으로 넘겨주기 위해 초기화합니다.
-                    isShowingDetail = true // 디테일시트로 넘어갑니다.
+                    // DetailViewにseminarDataをBindingで転送するために。
+                    newSeminar = seminar
+                    // DetailViewに移動
+                    isShowingDetail = true
                 } label: {
+                    // SeminarList Design
                     VStack(alignment: .leading) {
-                        
-                        HStack(alignment: .top) { // 상단 제목 부분입니다.
-                            
-                            Text("\(seminar.name)") // 메인 타이틀
+                        HStack(alignment: .top) {
+                            Text("\(seminar.name)")
                                 .foregroundColor(.black)
                                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
                             
@@ -51,51 +54,53 @@ struct SeminarListSubView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(3)
                             
-                            
-                            
-                            
-                            Button { // 즐겨찾기 버튼
-                                // User, favoriteSeminar에 저장
-                                // 저장 후 User의 favoriteSeminar 배열에 해당 Seminar가 있으면 즐겨찾기 버튼에 불이 들어와야한다.
+                            Button { // Favorite button
+                                // User, favoriteSeminarにセーブ
+                                // セーブ後、UserのfavoriteSeminar Arrayに該当Seminarがあれば星マークにライトが点かなければならない
+                                
+                                //　Optional Check
                                 if let _ = userStore.currentUser {
                                     if userStore.favoriteSeminars.firstIndex(of: "\(seminar.id)") != nil {
-                                        // 즐겨찾기 없애기
+                                        // Favorite 削除
                                         userStore.removeFavoriteSeminar(seminarID: seminar.id)
                                         print("\(userStore.favoriteSeminars)")
                                         
                                     } else {
-                                        // 즐겨찾기 넣기
+                                        // Favorite 入り
                                         userStore.addFavoriteSeminar(seminarID: seminar.id)
                                         print("\(userStore.favoriteSeminars)")
-                                        
                                     }
                                 } else {
+                                    // userStore.currentUserがなかったら、会員登録誘導Alert
                                     showingAlert = true
                                 }
                             } label: {
-                                
-                                Image(systemName: userStore.favoriteSeminars.contains(seminar.id) ? "star.fill" : "star")
+                                Image(systemName: 
+                                        // favoriteSeminarsにseminar.idがあるかないかによってのDesign
+                                      userStore.favoriteSeminars.contains(seminar.id) ? "star.fill" : "star")
                                     .foregroundColor(userStore.favoriteSeminars.contains(seminar.id) ? Color("AnyButtonColor") : .gray)
                             }
                         }
                         .bold()
                         .font(.callout)
                         
+                        // Seminar Image Design
                         VStack {
                             HStack(alignment: .top) {
-                                
-                                AsyncImage(url: URL(string: seminar.seminarImage)) { phase in // 이미지
+                                AsyncImage(url: URL(string: seminar.seminarImage)) { phase in
                                     if let image = phase.image {
                                         image
                                         .resizable()
                                         .frame(width: 100, height: 100)
                                         .aspectRatio(contentMode: .fill)
-                                    } else if phase.error != nil { // 에러 있을때
+                                    } else if phase.error != nil { 
+                                        // errorの時
                                         Image("TicketLion")
                                             .resizable()
                                             .frame(width: 100, height: 100)
                                             .aspectRatio(contentMode: .fill)
-                                    } else { // placeholder
+                                    } else { 
+                                        // placeholder
                                         Image("TicketLion")
                                             .resizable()
                                             .frame(width: 100, height: 100)
@@ -103,8 +108,8 @@ struct SeminarListSubView: View {
                                     }
                                 }
                                 
-                                
-                                VStack(alignment: .leading) { // 세미나 디테일 내용입니다.
+                                // Seminar Detail
+                                VStack(alignment: .leading) {
                                     Group {
                                         Text("강연자 : \(seminar.host)")
                                         Text("장소 : \(seminar.location ?? "location -")")
@@ -112,29 +117,28 @@ struct SeminarListSubView: View {
                                         Text("시간 : \(seminar.timeCreator( seminar.registerStartDate)) ~ \(seminar.timeCreator( seminar.registerEndDate))")
                                     }
                                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
-                                    
                                     .foregroundColor(.black)
                                     .font(.footnote)
                                 }
                                 .padding(EdgeInsets(top: 0, leading: 7, bottom: 0, trailing: 0))
-                                
                             }
                         }
-                    } // 전체 VStack 끝
+                    }
                     .padding()
                     .background(Color("Color"))
                     .cornerRadius(20)
                     .padding(EdgeInsets(top: 0, leading: 15, bottom: 15, trailing: 15))
                     
-                } // 라벨 끝
+                } // DetailViewに移動するButton終わり
             }
         }
+        // isShowingDetailの変化があったらfetch
         .onChange(of: isShowingDetail, perform: { newValue in
             seminarStore.fetchSeminar()
         })
         .fullScreenCover(isPresented: $isShowingDetail) {
             NavigationStack {
-                // 여기에 디테일 뷰
+                // DetailViewに移動
                 SeminarDetailView(isShowingDetail: $isShowingDetail, seminar: $newSeminar)
             }
         }

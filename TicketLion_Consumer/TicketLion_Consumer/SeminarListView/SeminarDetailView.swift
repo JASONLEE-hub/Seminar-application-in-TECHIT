@@ -147,29 +147,7 @@ struct SeminarDetailView: View {
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
                         
-//                        GridRow {
-//                            Text("모집 시작")
-//                                .modifier(textStyle())
-//
-//
-//                            Text("\(seminar.startDateCreator(seminar.registerStartDate))")
-//
-//                        }
-//                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
-//
-//                        GridRow {
-//                            Text("모집 종료")
-//                                .modifier(textStyle())
-//
-//
-//                            Text("\(seminar.startDateCreator(seminar.registerEndDate))")
-//
-//                        }
-//                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
-                        
-                        
                         GridRow {
-                            
                             Text("세미나 시작")
                                 .modifier(textStyle())
                             
@@ -202,12 +180,10 @@ struct SeminarDetailView: View {
                                 
                                 Text("\(seminar.location ?? "location -")")
                                 
-                                
                             }else {
                                 
                                 Text("(온라인 진행)")
                                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
-                                
                             }
                         }
                     }
@@ -216,13 +192,10 @@ struct SeminarDetailView: View {
                         SeminarDetailMapView(seminar: seminar)
                         
                     }
-                    
                 }
                 .padding()
                 
                 Spacer()
-                
-                
             }
             
             //MARK: 신청버튼
@@ -245,11 +218,8 @@ struct SeminarDetailView: View {
                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
 
             }else {
-            
-                
                 Button {
                     isShowingAlert = true
-                    
                 } label: {
                     Text(attendButtonText)
                         .font(.title2.bold())
@@ -260,10 +230,7 @@ struct SeminarDetailView: View {
                 .cornerRadius(5)
                 .disabled(attendButtonDisabled)
                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-
             }
-
-            
         }
         .navigationTitle(seminar.name)
         .navigationBarTitleDisplayMode(.inline)
@@ -277,14 +244,12 @@ struct SeminarDetailView: View {
                     Text("닫기")
                         .foregroundColor(.orange)
                 }
-                
             }
         }
         .alert(isPresented: $isShowingAlert) {
             Alert(title: Text("로그인후 이용해주세요"),
                   message: nil,
                   primaryButton: .default(Text("로그인 하기")) {
-                
                 isShowingDetail = false
                 userStore.loginSheet = true
                 print("\(userStore.loginSheet)")
@@ -293,7 +258,6 @@ struct SeminarDetailView: View {
             )
         }
     }
-    
 }
 
 
@@ -302,7 +266,6 @@ struct SeminarDetailView_Previews: PreviewProvider {
         NavigationStack {
             SeminarDetailView(isShowingDetail: .constant(true), seminar: .constant(Seminar.seminarsDummy[1]))
                 .environmentObject(UserStore())
-            
         }
     }
 }
