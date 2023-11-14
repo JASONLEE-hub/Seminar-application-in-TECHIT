@@ -41,13 +41,13 @@ class UserStore: ObservableObject {
     @Published var recentlySeminarsDetails: [Seminar] = []
     
     
-    // 회원가입
+    /// signUp
     func signUpUser(name: String, email: String, password: String, phoneNumber: String, birth: String) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print("회원가입 실패: \(error.localizedDescription)")
             } else if (authResult?.user) != nil {
-                // 회원가입 성공
+                // 会員登録成功
                 let uuid = UUID().uuidString
                 let user = User(id: uuid, name: name, phoneNumber: phoneNumber, email: email, password: password, birth: birth, appliedSeminars: [], favoriteSeminars: [], recentlySeminars: [], canceledSeminars: [])
                 
@@ -64,7 +64,7 @@ class UserStore: ObservableObject {
                     "canceledSeminars": user.canceledSeminars
                 ]
                 
-                // Firestore에 데이터 추가 (이메일을 문서 ID로 사용)
+                // Firestoreにデータを追加（電子メールを文書IDとして使用）
                 let db = Firestore.firestore()
                 db.collection("users").document(email).setData(userDictionary) { error in
                     if error != nil {
@@ -77,7 +77,7 @@ class UserStore: ObservableObject {
         }
     }
     
-    // 사용자 정보 가져오기
+    // User情報の取得
     func fetchUserInfo() {
         guard let currentUser = currentUser else {
             return
@@ -102,7 +102,7 @@ class UserStore: ObservableObject {
         }
     }
     
-    // 세미나 정보 가져오기
+    // セミナー情報の取得
     func updateSeminarDetails() {
         
         self.appliedSeminarDetails = []
@@ -110,7 +110,7 @@ class UserStore: ObservableObject {
         self.canceledSeminarDetails = []
         self.recentlySeminarsDetails = []
         
-        // 신청한 세미나 정보
+        // 申請したセミナー情報
         for seminarID in appliedSeminars {
             db.collection("Seminar").document(seminarID).getDocument { (document, error) in
                 if let document = document, document.exists {
@@ -139,7 +139,7 @@ class UserStore: ObservableObject {
             }
         }
         
-        // 즐겨찾기한 세미나 정보
+        // お気に入りのセミナー情報
         for seminarID in favoriteSeminars {
             db.collection("Seminar").document(seminarID).getDocument { (document, error) in
                 if let document = document, document.exists {
@@ -168,7 +168,7 @@ class UserStore: ObservableObject {
             }
         }
         
-        // 취소한 세미나 정보
+        // キャンセルしたセミナー情報
         for seminarID in canceledSeminars {
             db.collection("Seminar").document(seminarID).getDocument { (document, error) in
                 if let document = document, document.exists {
@@ -197,7 +197,7 @@ class UserStore: ObservableObject {
             }
         }
         
-        // 최근 본 세미나 정보
+        // 最近見たセミナー情報
         for seminarID in recentlySeminars {
             db.collection("Seminar").document(seminarID).getDocument { (document, error) in
                 if let document = document, document.exists {
@@ -228,22 +228,22 @@ class UserStore: ObservableObject {
     }
     
     var passwordsMatch: Bool {
-        // 두 비밀번호가 일치하는지 확인
+        // 2つのパスワードが一致していることを確認します
         return password == passwordCheck
     }
     
     func isValidEmail() -> Bool {
-        // [A-Z0-9a-z._%+-] 영어 대문자 소문자 특수문자까지 가능
-        // @뒤에 대소문자 숫자만 가능
-        // [A-Za-z] 영어 대소문자만 가능
-        // {2, 30} 2~30글자까지만 허용
+        // [A-Z0-9a-z._%+-] 英語大文字小文字 特殊文字まで 可能
+        // @後ろに大文字·小文字のみ可能
+        // [A-Za-z] 英語、大文字、小文字のみ可能
+        // {2, 30}2~30文字まで許容
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.(com|co\\.kr|go\\.kr)"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: email)
     }
     
     var isPasswordValid: Bool {
-        // 비밀번호가 최소 8자 이상, 특수문자와 숫자를 포함하는지 확인
+        // パスワードが最低8文字以上、特殊文字と数字を含んでいるか確認
         let passwordRegex = "^(?=.*[0-9]).{6,}$"
         let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
         return passwordPredicate.evaluate(with: password)
@@ -258,7 +258,7 @@ class UserStore: ObservableObject {
         currentUser = Auth.auth().currentUser
     }
     
-    /// 로그인
+    /// Login
     @MainActor
     func login(email: String, password: String) async throws {
         do {
@@ -268,15 +268,9 @@ class UserStore: ObservableObject {
         } catch {
             print("\(error.localizedDescription)")
         }
-        
-        //		await Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
-        //            if let error = error {
-        //                print("error: \(error.localizedDescription)")
-        //                return
-        //            }
     }
     
-    /// 로그아웃
+    /// Logout
     func logout() {
         
         email = ""
@@ -294,7 +288,7 @@ class UserStore: ObservableObject {
         try? Auth.auth().signOut()
     }
     
-    /// 오토 로그인
+    /// Auto Login
     func autoLogin() async {
         guard let currentUser = currentUser else { return }
         do {

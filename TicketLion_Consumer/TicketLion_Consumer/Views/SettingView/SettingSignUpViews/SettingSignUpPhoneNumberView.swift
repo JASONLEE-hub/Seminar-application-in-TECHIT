@@ -1,23 +1,17 @@
-
 //
-//  SettingSignUpBirthView.swift
+//  SettingSignUpPhoneNumberView.swift
 //  TicketLion_Comsumer
 //
 //  Created by 김윤우 on 2023/09/06.
 //
 
 import SwiftUI
-import FirebaseAuth
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 
-struct SettingSignUpBirthView: View {
+struct SettingSignUpPhoneNumberView: View {
     
     @ObservedObject var userStore: UserStore
     
-    @State private var birth: String = ""
-    
-//    @Binding var isCompleteSignUp: Bool
+    @State private var number: String = ""
     
     var body: some View {
         NavigationStack{
@@ -27,30 +21,25 @@ struct SettingSignUpBirthView: View {
                     .background(Color("AnyButtonColor"))
                 
                 HStack{
-                    Text("") +
-                    Text("생년월일").fontWeight(.bold) +
-                    Text("을\n입력해주세요")
+                    Text("휴대폰번호").fontWeight(.bold) +
+                    Text("를\n입력해주세요")
                     
                     Spacer()
-                    Text("5/5")
+                    
+                    Text("4/5")
                 }
                 .font(.title2)
-                TextField("ex)19960422", text: $userStore.birth)
-                    .keyboardType(.decimalPad)
+                
+                TextField("- 없이 입력", text: $userStore.phoneNumber)
+                    .keyboardType(.phonePad)
                     .padding()
                     .background(Color(uiColor: .secondarySystemBackground))
                     .cornerRadius(5)
                     .keyboardType(.decimalPad)
-                
-                
                 NavigationLink {
-                    SettingSignUpCompleteView(/* isCompleteSignUp: $isCompleteSignUp */)
-                        .onAppear {
-							Task {
-                                await userStore.signUpUser(name: userStore.name, email: userStore.email, password: userStore.password, phoneNumber: userStore.phoneNumber, birth: userStore.birth)
-							}
-                            
-                        }
+                    
+                    SettingSignUpBirthView(userStore: userStore /* ,isCompleteSignUp: $isCompleteSignUp*/ )
+                    
                 } label: {
                     
                     Text("다음")
@@ -58,11 +47,10 @@ struct SettingSignUpBirthView: View {
                         .padding()
                         .font(.title2)
                         .foregroundColor(.white)
-                        .background(userStore.birth.isEmpty ?  Color.gray : Color("AnyButtonColor"))
+                        .background(userStore.phoneNumber.isEmpty ?  Color.gray : Color("AnyButtonColor"))
                         .cornerRadius(5)
                 }
-                .disabled(userStore.birth.isEmpty)
-                
+                .disabled(userStore.phoneNumber.isEmpty)
                 
             }
             .padding()
@@ -70,14 +58,16 @@ struct SettingSignUpBirthView: View {
             .navigationBarTitleDisplayMode(.inline)
             
             Spacer()
+            
         }
     }
 }
 
-struct SettingSignUpBirthView_Previews: PreviewProvider {
+
+struct SettingSignUpPhoneNumberView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            SettingSignUpBirthView(userStore: UserStore() /*, isCompleteSignUp: .constant(false) */)
+            SettingSignUpPhoneNumberView(userStore: UserStore() /* ,isCompleteSignUp: .constant(false)*/ )
         }
     }
 }

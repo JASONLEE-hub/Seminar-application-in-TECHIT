@@ -47,11 +47,6 @@ struct SettingView: View {
 						Button("로그인") {
 							userStore.loginSheet = true
 						}
-//                        NavigationLink {
-//                            SettingLoginView(isLoggedinUser: $isLoggedinUser, userStore: userStore)
-//                        } label: {
-//                            Text("로그인")
-//                        }
                     }
                 }
 				.sheet(isPresented: $userStore.loginSheet, content: {

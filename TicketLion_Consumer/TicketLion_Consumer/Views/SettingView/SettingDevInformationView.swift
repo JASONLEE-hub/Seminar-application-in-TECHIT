@@ -20,9 +20,3 @@ struct SettingDevInformationView: UIViewControllerRepresentable {
         //
     }
 }
-
-//struct SettingDevInformationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SettingDevInformationView()
-//    }
-//}

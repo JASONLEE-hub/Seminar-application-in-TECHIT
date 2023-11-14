@@ -14,6 +14,7 @@ final class SeminarStore: ObservableObject {
     
     @Published var seminarList: [Seminar] = []
     
+    /// Seminar Firebase Fetch Function
     func fetchSeminar() {
         
         db.collection("Seminar").getDocuments { snapshot, error in
@@ -36,8 +37,8 @@ final class SeminarStore: ObservableObject {
         }
     }
 	
-	// 유저정보 이메일 -> database
-    
+	// User email -> database
+    /// User Email Firebase Transfer Function
     @MainActor
     func addUserPhoneNumberInSeminar(seminar: Seminar, userEmail: String) {
         

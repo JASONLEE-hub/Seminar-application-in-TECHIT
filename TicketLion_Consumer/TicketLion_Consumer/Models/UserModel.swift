@@ -11,23 +11,23 @@ struct User: Identifiable, Codable {
     
     /// UUID
     var id: String = UUID().uuidString
-    /// 유저 이름
+    /// User name
     let name: String
-    /// 유저 전화번호
+    /// User phoneNumber
     let phoneNumber: String
-    /// 유저 email
+    /// User email
     let email: String
-    /// 유저 password
+    /// User password
     let password: String
-    /// 유저 생년월일
+    /// User birthday
     let birth: String
-    /// 신청한 세미나
+    /// 申請したセミナー
     var appliedSeminars: [String]
-    /// 즐겨찾기한 세미나
+    /// お気に入りのセミナー
     var favoriteSeminars: [String]
-    /// 최근 본 세미나
+    /// 最近見たセミナー
     var recentlySeminars: [String]
-    /// 취소한 세미나
+    /// キャンセルしたセミナー
     var canceledSeminars: [String]
     
     static let usersDummy: [User] = [

@@ -130,13 +130,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08C7AD3B2AAFF86800B6C19E /* SeminarStore, enum */ = {
+		08C7176C2B032F7C00C7D173 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				09EA3D8C2AAFEAB70057F805 /* UserStore.swift */,
 				08C7AD382AAFF53D00B6C19E /* SeminarStore.swift */,
-				64B327F62AAF6C8500D64EFF /* SeminarEnum.swift */,
+				64B3280A2AAF6DC900D64EFF /* MySeminarStore.swift */,
+				64B327F22AAF6BDC00D64EFF /* DevStore.swift */,
 			);
-			path = "SeminarStore, enum";
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		08C7176D2B032FF400C7D173 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				64B327E72AAF69EE00D64EFF /* SeminarListView */,
+				64B327E82AAF6B1E00D64EFF /* MySeminarView */,
+				64B327E92AAF6B3000D64EFF /* SettingView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		08C7176E2B03303D00C7D173 /* Plus */ = {
+			isa = PBXGroup;
+			children = (
+				64B327F62AAF6C8500D64EFF /* SeminarEnum.swift */,
+				64B3280C2AAF6DE000D64EFF /* MyCategoryButton.swift */,
+				64B328082AAF6DB100D64EFF /* MyFilterBar.swift */,
+				51EC0F482AB14CB800D5FAC2 /* NavigationPathModel.swift */,
+				8B924DC12AAFE9B30042D790 /* Modifier.swift */,
+			);
+			path = Plus;
 			sourceTree = "<group>";
 		};
 		64B327982AAF5CEE00D64EFF = {
@@ -160,10 +184,10 @@
 			children = (
 				64B327A42AAF5CEE00D64EFF /* TicketLion_ConsumerApp.swift */,
 				64B327A62AAF5CEE00D64EFF /* MainTabView.swift */,
-				64B327E62AAF69E600D64EFF /* Model */,
-				64B327E72AAF69EE00D64EFF /* SeminarListView */,
-				64B327E82AAF6B1E00D64EFF /* MySeminarView */,
-				64B327E92AAF6B3000D64EFF /* SettingView */,
+				64B327E62AAF69E600D64EFF /* Models */,
+				08C7176D2B032FF400C7D173 /* Views */,
+				08C7176C2B032F7C00C7D173 /* ViewModels */,
+				08C7176E2B03303D00C7D173 /* Plus */,
 				64B327A82AAF5CF000D64EFF /* Assets.xcassets */,
 				64B327AA2AAF5CF000D64EFF /* Preview Content */,
 			);
@@ -178,19 +202,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		64B327E62AAF69E600D64EFF /* Model */ = {
+		64B327E62AAF69E600D64EFF /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				64B327EA2AAF6B6B00D64EFF /* SeminarModel.swift */,
 				64B327EC2AAF6B7E00D64EFF /* UserModel.swift */,
-				09EA3D8C2AAFEAB70057F805 /* UserStore.swift */,
 				64B327EE2AAF6BAF00D64EFF /* ResearchModel.swift */,
 				64B327F02AAF6BC300D64EFF /* DevModel.swift */,
-				64B327F22AAF6BDC00D64EFF /* DevStore.swift */,
-				8B924DC12AAFE9B30042D790 /* Modifier.swift */,
-				51EC0F482AB14CB800D5FAC2 /* NavigationPathModel.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		64B327E72AAF69EE00D64EFF /* SeminarListView */ = {
@@ -203,37 +223,11 @@
 				8B924DBF2AAFE8E00042D790 /* SeminarDetailMapView.swift */,
 				64B327FA2AAF6CC900D64EFF /* SeminarAttendView.swift */,
 				64B327FC2AAF6CE400D64EFF /* SeminarAttendPlusView.swift */,
-				08C7AD3B2AAFF86800B6C19E /* SeminarStore, enum */,
 			);
 			path = SeminarListView;
 			sourceTree = "<group>";
 		};
 		64B327E82AAF6B1E00D64EFF /* MySeminarView */ = {
-			isa = PBXGroup;
-			children = (
-				64B327FE2AAF6D1C00D64EFF /* MyView */,
-				64B327FF2AAF6D2500D64EFF /* myModel */,
-			);
-			path = MySeminarView;
-			sourceTree = "<group>";
-		};
-		64B327E92AAF6B3000D64EFF /* SettingView */ = {
-			isa = PBXGroup;
-			children = (
-				64B3280E2AAF6E3800D64EFF /* SettingSignUpViews */,
-				64B3281B2AAF6ED600D64EFF /* SettingView.swift */,
-				64B3281D2AAF6EEC00D64EFF /* SettingLoginView.swift */,
-				64B3281F2AAF6EFC00D64EFF /* SettingTermsView.swift */,
-				64B328212AAF6F0D00D64EFF /* SettingUserView.swift */,
-				64B328232AAF6F1F00D64EFF /* SettingUserDetailView.swift */,
-				64B328252AAF6F6400D64EFF /* SettingDevInfoView.swift */,
-				64B328272AAF6F7E00D64EFF /* SettingDevInfoDetailView.swift */,
-				64B328292AAF6FA700D64EFF /* SettingDevInformationView.swift */,
-			);
-			path = SettingView;
-			sourceTree = "<group>";
-		};
-		64B327FE2AAF6D1C00D64EFF /* MyView */ = {
 			isa = PBXGroup;
 			children = (
 				64B328002AAF6D3C00D64EFF /* MySeminarView.swift */,
@@ -242,17 +236,23 @@
 				B5D9D2842AB1451100315338 /* MySeminarListView.swift */,
 				64B328062AAF6D9B00D64EFF /* MyTicketSheetView.swift */,
 			);
-			path = MyView;
+			path = MySeminarView;
 			sourceTree = "<group>";
 		};
-		64B327FF2AAF6D2500D64EFF /* myModel */ = {
+		64B327E92AAF6B3000D64EFF /* SettingView */ = {
 			isa = PBXGroup;
 			children = (
-				64B328082AAF6DB100D64EFF /* MyFilterBar.swift */,
-				64B3280A2AAF6DC900D64EFF /* MySeminarStore.swift */,
-				64B3280C2AAF6DE000D64EFF /* MyCategoryButton.swift */,
+				64B3281B2AAF6ED600D64EFF /* SettingView.swift */,
+				64B3281D2AAF6EEC00D64EFF /* SettingLoginView.swift */,
+				64B3281F2AAF6EFC00D64EFF /* SettingTermsView.swift */,
+				64B328212AAF6F0D00D64EFF /* SettingUserView.swift */,
+				64B328232AAF6F1F00D64EFF /* SettingUserDetailView.swift */,
+				64B328252AAF6F6400D64EFF /* SettingDevInfoView.swift */,
+				64B328272AAF6F7E00D64EFF /* SettingDevInfoDetailView.swift */,
+				64B328292AAF6FA700D64EFF /* SettingDevInformationView.swift */,
+				64B3280E2AAF6E3800D64EFF /* SettingSignUpViews */,
 			);
-			path = myModel;
+			path = SettingView;
 			sourceTree = "<group>";
 		};
 		64B3280E2AAF6E3800D64EFF /* SettingSignUpViews */ = {

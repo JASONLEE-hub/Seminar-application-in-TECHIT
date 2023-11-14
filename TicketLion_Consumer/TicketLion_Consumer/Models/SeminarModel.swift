@@ -10,37 +10,32 @@ import SwiftUI
 struct Seminar: Identifiable, Codable, Hashable {
 
     var id: String = UUID().uuidString
-    /// 세미나 카테고리
+    /// Seminar Category
     var category: [String]
-    /// 세미나 이름
+    /// Seminar Title
     var name: String
-    /// 세미나 대표 사진
+    /// Seminar Image
     var seminarImage: String
-    /// 세미나 호스트 이름
+    /// Seminar Host Name
     var host: String
-    /// 세미나 상세 정보
+    /// Seminar Detail
     var details: String
-    /// 장소 주소
+    /// Place address
     var location: String?
-    /// 세미나 모집 최대 인원
+    /// Maximum number of seminar recruits
     var maximumUserNumber: Int
-    /// 세미나 마감 여부
+    /// Seminar closing status
     var closingStatus: Bool
-    /// 세미나 모집 시작 날짜
+    /// Seminar Recruitment Start Date
     var registerStartDate: Double
-    /// 세미나 모집 종료 날짜
+    /// Seminar Recruitment End Date
     var registerEndDate: Double
-    /// 세미나 진행 시작 날짜
+    /// Seminar Start Date
     var seminarStartDate: Double
-    /// 세미나 진행 종료 날짜
+    /// Seminar End Date
     var seminarEndDate: Double
-    /// 세미나 참가 유저
-    var enterUsers: [String]            // 저장값은 유저의 전화번호로!
-//    let form: Bool                      // 세미나 진행 형태 (오프라인,온라인)
-//    let registerDate: String            // 모집시작날짜 ~ 모집마감날짜 구조체
-//    let seminarDate: String             // 세미나시작날짜 ~ 세미나끝날짜 구조체
-//    let registerIsSelected: Bool        // 세미나 참가여부
-//    let registerIsTaped: Bool           // 세미나 게시글 한번이라도 확인했을때 알려주는 Bool값
+    /// Seminar Participants
+    var enterUsers: [String]
     
     static let TempSeminar: Seminar = Seminar(category: ["iOS Dev", "Front-End"], name: "피카추가 알려주는 강해지는 iOS앱!", seminarImage: "https://cdn.discordapp.com/attachments/1148284371355312269/1148792629149052968/pikachu.png", host: "피캇추", details: "일타강사 피캇추가 따라하기만 하면 강해지는 iOS앱 강의! 스위프트로 혼내줍니다.", location: "서울 종로구 종로3길", maximumUserNumber: 80, closingStatus: false, registerStartDate: 5151321, registerEndDate: 5151321, seminarStartDate: 5151321, seminarEndDate: 5151321, enterUsers: ["2의재승","지우","웅이"])
 
@@ -51,8 +46,8 @@ struct Seminar: Identifiable, Codable, Hashable {
         Seminar(category: ["Android Dev", "Back-End"], name: "자꾸만 듣고 싶은 안드로이드 Back-End!", seminarImage: "https://images.velog.io/images/c-on/post/2b806749-2868-4c76-8c3f-9f1e3fdc3797/hire-backend-developer.jpg", host: "개굴", details: "마약같은 Android 서버강의!", location: "서울 종로구 종로3길", maximumUserNumber: 80, closingStatus: false, registerStartDate: 5151321, registerEndDate: 5151321, seminarStartDate: 5151321, seminarEndDate: 5151321, enterUsers: ["2의재승", "우서코", "피의종찬"]),
         Seminar(category: ["iOS Dev", "Back-End"], name: "화성으로 떠나는 iOS Back-End!", seminarImage: "https://assets-prd.ignimgs.com/2022/01/28/starcraft-2-wings-of-liberty-button-crop-1643355282078.jpg?width=300&crop=1%3A1%2Csmart&dpr=2", host: "일론 머스크", details: "일론 머스크를 따라하기만 하면 화성에 갈 수 있는 iOS 서버 강의!", location: "서울 종로구 종로3길", maximumUserNumber: 80, closingStatus: false, registerStartDate: 5151321, registerEndDate: 5151321, seminarStartDate: 5151321, seminarEndDate: 5151321, enterUsers: ["2의재승","몸뚱아리","좌무커", "우서코", "피의종찬"]),
     ]
-    
-    func timeCreator(_ time: Double) -> String { //private안되는 이유..?
+    /// Time Translator
+    func timeCreator(_ time: Double) -> String {
         let createdAt: Date = Date(timeIntervalSince1970: time)
         let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "hh:mm a"
@@ -77,7 +72,7 @@ struct Seminar: Identifiable, Codable, Hashable {
         
         yearFormatter.dateFormat = "yyyy"
         
-        //start년도와 end년도가 같으면 end년도 출력안하기
+        // start年度とend年度が同じならend年度出力しない
         if yearFormatter.string(from: createdAt) == yearFormatter.string(from: Date(timeIntervalSince1970: startDate)) {
             formatter.dateFormat = "MM월 dd일"
         }else {

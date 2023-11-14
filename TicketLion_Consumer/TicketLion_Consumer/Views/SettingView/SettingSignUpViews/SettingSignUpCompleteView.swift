@@ -12,8 +12,6 @@ struct SettingSignUpCompleteView: View {
     @EnvironmentObject var userStore: UserStore
     @EnvironmentObject var router: Router
     
-//    @Binding var isCompleteSignUp: Bool
-    
     var body: some View {
         NavigationStack(path: $router.path) {
             
@@ -64,11 +62,6 @@ struct SettingSignUpCompleteView: View {
                             .background(Color("AnyButtonColor"))
                             .cornerRadius(5)
                     }
-
-//                    .navigationDestination(isPresented: $isCompleteSignUp, destination: {
-//                        SettingLoginView()}
-//                    )
-
                 }
                 Spacer()
             }
