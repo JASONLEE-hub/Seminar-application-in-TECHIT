@@ -86,7 +86,7 @@ GoogleService-info.plist
 <summary>セミナー管理</summary>
   
   - 開催するセミナー登録
-  - 締め切り期限に沿ったセミナー管理
+  - セミナー管理
   - 参加を申し込んだユーザー管理
 
 </details>
