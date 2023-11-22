@@ -14,7 +14,7 @@
 <br/><br/>
 
 ## 👉 インストール / 実行方法
-- Firebase グーグルインフォ消費者用、管理者用の設置が必要
+- Firebase Google Info消費者用、管理者用の設置が必要
 ```
 GoogleService-info.plist
 ```
